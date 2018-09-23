@@ -9,19 +9,19 @@ radius * radius = X * X + Y * Y
 
 int main(int argc, char** argv)
 {
-	float fInputX ;
-	float fInputY ;
-	float fR2 ;
-	int iN = 0 ;
-	scanf("%d", &iN) ;
-	for (int i = 0; i < iN; ++i)
-	{
-		scanf("%f %f", &fInputX, &fInputY) ;
-		fR2 = fInputX * fInputX + fInputY * fInputY ;
-		printf("Property %d: This property will begin eroding in year %d.\n", i + 1, long(((fR2 * 1.57075) / 50) + 1)) ;
-	}
+    float fInputX ;
+    float fInputY ;
+    float fR2 ;
+    int iN = 0 ;
+    scanf("%d", &iN) ;
+    for (int i = 0; i < iN; ++i)
+    {
+        scanf("%f %f", &fInputX, &fInputY) ;
+        fR2 = fInputX * fInputX + fInputY * fInputY ;
+        printf("Property %d: This property will begin eroding in year %d.\n", i + 1, long(((fR2 * 1.57075) / 50) + 1)) ;
+    }
 
-	printf("END OF OUTPUT.\n") ;
+    printf("END OF OUTPUT.\n") ;
 
-	return 0 ;
+    return 0 ;
 }

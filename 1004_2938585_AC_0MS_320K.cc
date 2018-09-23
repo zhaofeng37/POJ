@@ -9,15 +9,15 @@ using namespace std ;
 
 int main(int argc, char** argv)
 {
-	float fInput ;
-	float fAll = 0 ;
-	for (int i = 0; i < 12; ++i)
-	{
-		cin >> fInput ;
-		fAll += fInput ;
-	}
+    float fInput ;
+    float fAll = 0 ;
+    for (int i = 0; i < 12; ++i)
+    {
+        cin >> fInput ;
+        fAll += fInput ;
+    }
 
-	printf("$%.2f\n", float(fAll / 12)) ;
+    printf("$%.2f\n", float(fAll / 12)) ;
 
-	return 0 ;
+    return 0 ;
 }

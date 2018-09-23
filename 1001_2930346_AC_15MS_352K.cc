@@ -39,12 +39,12 @@ void RemoveLeftZero(string& strInput)
 long RemoveRightZero(string& strInput, long lPos)
 {
     if (lPos < 1)
-    	return 0;
+        return 0;
 
     string::size_type l = strInput.length();
     string::size_type n = strInput.find_last_not_of('0') + 1;
     if (lPos > n)
-    	n = lPos;
+        n = lPos;
     strInput.erase(std::remove(strInput.begin() + n, strInput.end(), '0'), strInput.end());
     return l - strInput.length();
 }
