@@ -1,4 +1,4 @@
-// POJ 1001 Exponentiation
+// POJ 1001 Exponentiation http://poj.org/problem?id=1001
 /**
 This is a high precision presented in literal format problem.
 1. At First, we should translate the input base number into literal format.

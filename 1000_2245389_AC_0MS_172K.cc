@@ -1,4 +1,4 @@
-// POJ 1000 A+B Problem
+// POJ 1000 A+B Problem http://poj.org/problem?id=1000
 /**
 This is an entry level problem.
 It will show participant how to use the input system to run and judge the commitment.

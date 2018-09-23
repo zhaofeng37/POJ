@@ -1,4 +1,4 @@
-// POJ 1001 Exponentiation
+// POJ 1002 487-3279 http://poj.org/problem?id=1002
 /**
 */
 
