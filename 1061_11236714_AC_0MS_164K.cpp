@@ -31,8 +31,7 @@ __int64 frog(__int64 x, __int64 y, __int64 m, __int64 n, __int64 l)
     __int64 r = gcd(a, b) ;
     if (c % r)
         return -1 ;
-    a /= r ; b /= r ; c /= r ;
-    gcd(a, b) ;
+    b /= r ; c /= r ;
     __int64 t = c * X /b ;
     X = c * X - t * b ;
     if (X < 0)
