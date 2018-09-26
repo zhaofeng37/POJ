@@ -49,86 +49,86 @@
 
 // [1...X] 闭闭区间
 struct segNode {
-	int l, r, m, tl, ll, rl;
-	int mid() { return (l + r) >> 1; }
-	int len() { return r - l + 1; }
-	void update() { tl = ll = rl = (m ? 0 : r - l + 1); }
+    int l, r, m, tl, ll, rl;
+    int mid() { return (l + r) >> 1; }
+    int len() { return r - l + 1; }
+    void update() { tl = ll = rl = (m ? 0 : r - l + 1); }
 } sn[N * 4];
 
 void build(int rt, int l, int r) {
-	sn[rt].l = l; sn[rt].r = r; sn[rt].m = 0;
-	sn[rt].ll = sn[rt].rl = sn[rt].tl = sn[rt].len();
-	if (l == r) return;
-	int mid = sn[rt].mid();
-	build(LC(rt), l, mid);
-	build(RC(rt), mid + 1, r);
+    sn[rt].l = l; sn[rt].r = r; sn[rt].m = 0;
+    sn[rt].ll = sn[rt].rl = sn[rt].tl = sn[rt].len();
+    if (l == r) return;
+    int mid = sn[rt].mid();
+    build(LC(rt), l, mid);
+    build(RC(rt), mid + 1, r);
 }
 
 int query(int rt, int w) {
-	if (sn[rt].l == sn[rt].r && 1 == w)
-	    return sn[rt].l;
-	if (-1 != sn[rt].m) {
-		sn[LC(rt)].m = sn[RC(rt)].m = sn[rt].m;
-		sn[rt].m = -1;
-		sn[LC(rt)].update();
-		sn[RC(rt)].update();
-	}
-	if (sn[LC(rt)].tl >= w) return query(LC(rt), w);
-	if (sn[LC(rt)].rl + sn[RC(rt)].ll >= w) return sn[LC(rt)].r - sn[LC(rt)].rl + 1;
-	if (sn[RC(rt)].tl >= w) return query(RC(rt), w);
+    if (sn[rt].l == sn[rt].r && 1 == w)
+        return sn[rt].l;
+    if (-1 != sn[rt].m) {
+        sn[LC(rt)].m = sn[RC(rt)].m = sn[rt].m;
+        sn[rt].m = -1;
+        sn[LC(rt)].update();
+        sn[RC(rt)].update();
+    }
+    if (sn[LC(rt)].tl >= w) return query(LC(rt), w);
+    if (sn[LC(rt)].rl + sn[RC(rt)].ll >= w) return sn[LC(rt)].r - sn[LC(rt)].rl + 1;
+    if (sn[RC(rt)].tl >= w) return query(RC(rt), w);
 
-	return 0;
+    return 0;
 }
 
 void update(int l, int r, int m, int rt) {
-	if (l == sn[rt].l && r == sn[rt].r) {
-		sn[rt].m = m;
-		sn[rt].update();
-		return;
-	}
-	if (-1 != sn[rt].m) {
-		sn[LC(rt)].m = sn[RC(rt)].m = sn[rt].m;
-		sn[rt].m = -1;
-		sn[LC(rt)].update();
-		sn[RC(rt)].update();
-	}
-	int mid = sn[rt].mid();
-	if (l > mid) update(l, r, m, RC(rt));
-	else if (r <= mid) update(l, r, m, LC(rt));
-	else {
-		update(l, mid, m, LC(rt));
-		update(mid + 1, r, m, RC(rt));
-	}
+    if (l == sn[rt].l && r == sn[rt].r) {
+        sn[rt].m = m;
+        sn[rt].update();
+        return;
+    }
+    if (-1 != sn[rt].m) {
+        sn[LC(rt)].m = sn[RC(rt)].m = sn[rt].m;
+        sn[rt].m = -1;
+        sn[LC(rt)].update();
+        sn[RC(rt)].update();
+    }
+    int mid = sn[rt].mid();
+    if (l > mid) update(l, r, m, RC(rt));
+    else if (r <= mid) update(l, r, m, LC(rt));
+    else {
+        update(l, mid, m, LC(rt));
+        update(mid + 1, r, m, RC(rt));
+    }
 
-	sn[rt].tl = std::max(sn[LC(rt)].tl, sn[RC(rt)].tl);
-	sn[rt].tl = std::max(sn[rt].tl, (sn[LC(rt)].rl + sn[RC(rt)].ll));
-	if (sn[LC(rt)].len() > sn[LC(rt)].ll)
-	    sn[rt].ll = sn[LC(rt)].ll;
-	else
-	    sn[rt].ll = sn[LC(rt)].ll + sn[RC(rt)].ll;
-	if (sn[RC(rt)].len() > sn[RC(rt)].rl)
-	    sn[rt].rl = sn[RC(rt)].rl;
-	else
-	    sn[rt].rl = sn[LC(rt)].rl + sn[RC(rt)].rl;
+    sn[rt].tl = std::max(sn[LC(rt)].tl, sn[RC(rt)].tl);
+    sn[rt].tl = std::max(sn[rt].tl, (sn[LC(rt)].rl + sn[RC(rt)].ll));
+    if (sn[LC(rt)].len() > sn[LC(rt)].ll)
+        sn[rt].ll = sn[LC(rt)].ll;
+    else
+        sn[rt].ll = sn[LC(rt)].ll + sn[RC(rt)].ll;
+    if (sn[RC(rt)].len() > sn[RC(rt)].rl)
+        sn[rt].rl = sn[RC(rt)].rl;
+    else
+        sn[rt].rl = sn[LC(rt)].rl + sn[RC(rt)].rl;
 
 }
 
 int main() {
-	int l, r, c, w, idx, io;
-	while (~scanf("%d %d", &r, &c)) {
-		build(1, 1, r);
-		while (c--) {
-			scanf("%d", &io);
-			if (1 == io) { // ci
-			    scanf("%d", &w);
-				idx = query(1, w);
-				printf("%d\n", idx);
-				if (idx) update(idx, idx + w - 1, 1, 1);
-			} else { // co
-				scanf("%d %d", &l, &w);
-				update(l, l + w - 1, 0, 1);
-			}
-		}
-	}
+    int l, r, c, w, idx, io;
+    while (~scanf("%d %d", &r, &c)) {
+        build(1, 1, r);
+        while (c--) {
+            scanf("%d", &io);
+            if (1 == io) { // ci
+                scanf("%d", &w);
+                idx = query(1, w);
+                printf("%d\n", idx);
+                if (idx) update(idx, idx + w - 1, 1, 1);
+            } else { // co
+                scanf("%d %d", &l, &w);
+                update(l, l + w - 1, 0, 1);
+            }
+        }
+    }
     return 0;
 }
